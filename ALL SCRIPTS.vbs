@@ -192,6 +192,15 @@ cs_scripts_array(script_num).agencies_that_use		= "ANOKA, BELTRAMI, DAKOTA, HENN
 script_num = script_num + 1
 ReDim Preserve cs_scripts_array(script_num)
 SET cs_scripts_array(script_num) = NEW cs_script
+cs_scripts_array(script_num).script_name		= "FRAUD REFERRAL"
+cs_scripts_array(script_num).script_type		= "NOTES"
+cs_scripts_array(script_num).file_name			= "NOTES - FRAUD REFERRAL.vbs"
+cs_scripts_array(script_num).description		= "Template for adding CAAD note about a fraud referral."
+cs_scripts_array(script_num).agencies_that_use		= "BELTRAMI, DAKOTA, HENNEPIN, MILLE LACS, OLMSTED, RAMSEY, RENVILLE, SCOTT, STEARNS, WASHINGTON, WRIGHT"
+
+script_num = script_num + 1
+ReDim Preserve cs_scripts_array(script_num)
+SET cs_scripts_array(script_num) = NEW cs_script
 cs_scripts_array(script_num).script_name		= "INTAKE DOCS RECEIVED"
 cs_scripts_array(script_num).script_type		= "NOTES"
 cs_scripts_array(script_num).file_name			= "NOTES - INTAKE DOCS RECEIVED.vbs"
