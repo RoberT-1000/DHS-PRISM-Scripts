@@ -330,7 +330,7 @@ SET cs_scripts_array(script_num) = NEW cs_script
 cs_scripts_array(script_num).script_name		= "REVW PAY PLAN - DL IS SUSP"
 cs_scripts_array(script_num).script_type		= "BULK"
 cs_scripts_array(script_num).file_name			= "BULK - E4111 SUSP SCRUBBER.vbs"
-cs_scripts_array(script_num).description		= "NEW 02/2016!! Scrubs E4111 (REVW Pay Plan) workflists when DL is already suspended."
+cs_scripts_array(script_num).description		= "NEW 06/2016!! Scrubs E4111 (REVW Pay Plan) workflists when DL is already suspended."
 cs_scripts_array(script_num).agencies_that_use		= "ANOKA, BELTRAMI, DAKOTA, HENNEPIN, MILLE LACS, OLMSTED, RAMSEY, RENVILLE, SCOTT, STEARNS, WASHINGTON, WRIGHT"
 
 script_num = script_num + 1
