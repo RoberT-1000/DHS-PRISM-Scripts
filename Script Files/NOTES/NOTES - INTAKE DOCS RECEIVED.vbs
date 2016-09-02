@@ -20,7 +20,7 @@ If req.Status = 200 Then									'200 means great success
 	Set fso = CreateObject("Scripting.FileSystemObject")	'Creates an FSO
 	Execute req.responseText								'Executes the script code
 ELSE														'Error message, tells user to try to reach github.com, otherwise instructs to contact Veronica with details (and stops script).
-	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_ 
+	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_
 			vbCr & _
 			"Before contacting Robert Kalb, please check to make sure you can load the main page at www.GitHub.com." & vbCr &_
 			vbCr & _
@@ -31,7 +31,7 @@ ELSE														'Error message, tells user to try to reach github.com, otherwi
 			vbTab & vbTab & "responsible for network issues." & vbCr &_
 			vbTab & "- The URL indicated below (a screenshot should suffice)." & vbCr &_
 			vbCr & _
-			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_ 
+			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_
 			vbCr &_
 			"URL: " & url
 			StopScript
@@ -39,7 +39,7 @@ END IF
 
 
 'DIMMING VARIABLES
-DIM beta_agency, row, col, case_number_valid, intake_docs_recd_dialog, paternity_wkst_check, rec_of_parentage_check, prism_case_number, date_recd, app_supp_coll_services_check, app_fee_check, ref_supp_coll_app_check, good_cause_check, role_county_atty_check, aff_arrears_check, waiver_pers_service_check, birth_check, marriage_check, court_order_check, photo_check, insurance_check, ButtonPressed, other_recd, worker_signature   
+DIM row, col, case_number_valid, intake_docs_recd_dialog, paternity_wkst_check, rec_of_parentage_check, prism_case_number, date_recd, app_supp_coll_services_check, app_fee_check, ref_supp_coll_app_check, good_cause_check, role_county_atty_check, aff_arrears_check, waiver_pers_service_check, birth_check, marriage_check, court_order_check, photo_check, insurance_check, ButtonPressed, other_recd, worker_signature   
 
 
 'THE DIALOG BOX-------------------------------------------------------------------------------------------------------------------

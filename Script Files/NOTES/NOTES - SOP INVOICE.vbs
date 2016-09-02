@@ -1,10 +1,10 @@
-'option explicit  -- COMMENTED OUT PER VKC REQUEST 
+'option explicit  -- COMMENTED OUT PER VKC REQUEST
 'STATS GATHERING----------------------------------------------------------------------------------------------------
 name_of_script = "NOTES - SOP INVOICE.vbs"
 start_time = timer
 'MANUAL TIME TO COMPLETE THIS SCRIPT IS NEEDED
 
-DIM beta_agency, row, col
+DIM row, col
 
 'LOADING ROUTINE FUNCTIONS (FOR PRISM)---------------------------------------------------------------
 Dim URL, REQ, FSO					'Declares variables to be good to option explicit users
@@ -22,7 +22,7 @@ If req.Status = 200 Then									'200 means great success
 	Set fso = CreateObject("Scripting.FileSystemObject")	'Creates an FSO
 	Execute req.responseText								'Executes the script code
 ELSE														'Error message, tells user to try to reach github.com, otherwise instructs to contact Veronica with details (and stops script).
-	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_ 
+	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_
 			vbCr & _
 			"Before contacting Robert Kalb, please check to make sure you can load the main page at www.GitHub.com." & vbCr &_
 			vbCr & _
@@ -33,7 +33,7 @@ ELSE														'Error message, tells user to try to reach github.com, otherwi
 			vbTab & vbTab & "responsible for network issues." & vbCr &_
 			vbTab & "- The URL indicated below (a screenshot should suffice)." & vbCr &_
 			vbCr & _
-			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_ 
+			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_
 			vbCr &_
 			"URL: " & url
 			StopScript
@@ -70,7 +70,7 @@ EndDialog
 
 
 'Connecting to Bluezone
-EMConnect ""			
+EMConnect ""
 
 'Searches for the case number
 row = 1
@@ -86,7 +86,7 @@ End if
 'The script will not run unless the CAAD note is signed and there is a valid prism case number
 DO
 	DO
-		DO	
+		DO
 			DO
 				DO
 					Dialog service_of_process
@@ -123,7 +123,7 @@ CALL write_bullet_and_variable_in_CAAD("Invoice Rec'd From", invoice_from)
 call write_bullet_and_variable_in_CAAD("invoice #",invoice_number)
 call write_bullet_and_variable_in_CAAD("$",dollar_amount)
 call write_bullet_and_variable_in_CAAD("Legal action", legal_action)
-call write_bullet_and_variable_in_CAAD("person served", person_served)  
+call write_bullet_and_variable_in_CAAD("person served", person_served)
 If service_checkbox = 1 then call write_variable_in_CAAD("service was successful")
 If service_checkbox = 0 then call write_variable_in_CAAD("service was not successful")
 If pay_yes_checkbox = 1 then call write_variable_in_CAAD("Invoice is OK to pay")
@@ -133,8 +133,3 @@ transmit
 PF3
 
 script_end_procedure("")                                                                     	'stopping the script
-
-
-
-
-

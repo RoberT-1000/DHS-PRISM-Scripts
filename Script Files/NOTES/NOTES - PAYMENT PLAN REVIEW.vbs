@@ -15,7 +15,7 @@ If req.Status = 200 Then									'200 means great success
 	Set fso = CreateObject("Scripting.FileSystemObject")	'Creates an FSO
 	Execute req.responseText								'Executes the script code
 ELSE														'Error message, tells user to try to reach github.com, otherwise instructs to contact Veronica with details (and stops script).
-	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_ 
+	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_
 			vbCr & _
 			"Before contacting Veronica Cary, please check to make sure you can load the main page at www.GitHub.com." & vbCr &_
 			vbCr & _
@@ -26,7 +26,7 @@ ELSE														'Error message, tells user to try to reach github.com, otherwi
 			vbTab & vbTab & "responsible for network issues." & vbCr &_
 			vbTab & "- The URL indicated below (a screenshot should suffice)." & vbCr &_
 			vbCr & _
-			"Veronica will work with your IT department to try and solve this issue, if needed." & vbCr &_ 
+			"Veronica will work with your IT department to try and solve this issue, if needed." & vbCr &_
 			vbCr &_
 			"URL: " & url
 			StopScript
@@ -59,17 +59,15 @@ EMConnect ""
 
 
 DO
-		
+
 Dialog DLPP_dialog
 	IF ButtonPressed = 0 THEN StopScript
 	IF workers_signature = "" THEN MsgBox "Please sign your CAAD note"
 LOOP UNTIL workers_signature <> ""
 
 	DO															'Making sure that user picks a type of plan other than select one
-		IF LIST1 = "Select one" THEN MsgBox "Please select a Type of Payment Plan"			
+		IF LIST1 = "Select one" THEN MsgBox "Please select a Type of Payment Plan"
 	LOOP UNTIL LIST1 <> ""
-
-DIM beta_agency
 
 Dim DLPP_dialog, PRISM_case_number, List1, results, Beg_date, total_due, deliq_amt, DLPP_checkbox, Other_checkbox, workers_signature, ButtonPressed
 
@@ -78,11 +76,11 @@ Call check_for_PRISM(True)				'checks to make sure you are not passworded out
 Call navigate_to_PRISM_screen("CAAD")		'goes to CAAD screen
 
 PF5								'adding a caad note
-EMWriteScreen "A", 3, 29							
-EMWriteScreen "Free", 4, 54				'putting in caad code	
+EMWriteScreen "A", 3, 29
+EMWriteScreen "Free", 4, 54				'putting in caad code
 EMSetCursor 16, 4						'getting cursor in correct screen position to enter note.
 
-'writes the CAAD note			
+'writes the CAAD note
 call write_variable_in_CAAD("Drivers License Payment Review")
 call write_bullet_and_variable_in_CAAD("Type of Payment Plan: ", List1)
 call write_bullet_and_variable_in_CAAD("Pay Plan Beg Date: ", Beg_date)
@@ -91,7 +89,7 @@ call write_bullet_and_variable_in_CAAD("Delinquency Amount: ", deliq_amt)
 call write_bullet_and_variable_in_CAAD("Results of Review and any actions taken: ", results)
 IF DLPP_checkbox = 1 THEN
 call write_variable_in_CAAD("Sent F0919 Non-Compliance")			'noting if this document was sent
-END IF 
+END IF
 IF Other_checkbox = 1 THEN
 call write_variable_in_CAAD("Sent OTHER F0918 Non-Compliance")		'noting if this document was sent
 END IF
@@ -99,7 +97,7 @@ call write_variable_in_CAAD("*******")
 call write_variable_in_CAAD(workers_signature)
 transmit
 
-IF DLPP_checkbox = 1 THEN 
+IF DLPP_checkbox = 1 THEN
 call navigate_to_PRISM_screen("DORD")			'sending the document
 PF5
 EMWriteScreen "A", 3, 29
@@ -107,20 +105,13 @@ EmWriteScreen "F0919",  6, 36
 transmit
 END IF
 
-IF Other_checkbox = 1 THEN 
+IF Other_checkbox = 1 THEN
 call navigate_to_PRISM_screen("DORD")			'sending the document
 PF5
-EMWriteScreen "A", 3, 29					
+EMWriteScreen "A", 3, 29
 EmWriteScreen "F0918", 6, 36
 transmit
 END IF
 
 
-'Would like auto-filling for Beg Date, Total Due, Deliquency Amount 
-
-
-
-
-
-
-
+'Would like auto-filling for Beg Date, Total Due, Deliquency Amount

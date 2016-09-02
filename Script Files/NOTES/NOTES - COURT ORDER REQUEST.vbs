@@ -1,7 +1,4 @@
-option explicit
-
 'STATS GATHERING----------------------------------------------------------------------------------------------------
-Dim name_of_script, start_time
 name_of_script = "NOTES - COURT ORDER REQUEST.vbs"
 start_time = timer
 'MANUAL TIME TO COMPLETE THIS SCRIPT IS NEEDED
@@ -22,7 +19,7 @@ If req.Status = 200 Then									'200 means great success
 	Set fso = CreateObject("Scripting.FileSystemObject")	'Creates an FSO
 	Execute req.responseText								'Executes the script code
 ELSE														'Error message, tells user to try to reach github.com, otherwise instructs to contact Veronica with details (and stops script).
-	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_ 
+	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_
 			vbCr & _
 			"Before contacting Robert Kalb, please check to make sure you can load the main page at www.GitHub.com." & vbCr &_
 			vbCr & _
@@ -33,14 +30,14 @@ ELSE														'Error message, tells user to try to reach github.com, otherwi
 			vbTab & vbTab & "responsible for network issues." & vbCr &_
 			vbTab & "- The URL indicated below (a screenshot should suffice)." & vbCr &_
 			vbCr & _
-			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_ 
+			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_
 			vbCr &_
 			"URL: " & url
 			StopScript
 END IF
 
 'DIMMING variables
-DIM beta_agency, row, col, case_number_valid, Court_Order_Request_Dialog, prism_case_number, date_court_order_requested, requested_via_droplistbox, requested_from, court_order_number, create_worklist_checkbox, worker_signature, order_type, ButtonPressed
+DIM row, col, case_number_valid, Court_Order_Request_Dialog, prism_case_number, date_court_order_requested, requested_via_droplistbox, requested_from, court_order_number, create_worklist_checkbox, worker_signature, order_type, ButtonPressed
 
 
 'THE DIALOG----------------------------------------------------------------------------------------------------------------------------------------------
@@ -67,7 +64,7 @@ EndDialog
 'THE SCRIPT------------------------------------------------------------------------------------------------------------------------------------------------
 
 'Connects to Bluezone
-EMConnect ""                    
+EMConnect ""
 
 'Brings Bluezone to the front
 EMFocus

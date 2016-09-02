@@ -3,8 +3,6 @@ name_of_script = "ACTIONS - EST DORD NPA DOCS.vbs"
 start_time = timer
 'MANUAL TIME TO COMPLETE THIS SCRIPT IS NEEDED
 
-DIM beta_agency
-
 'LOADING ROUTINE FUNCTIONS (FOR PRISM)---------------------------------------------------------------
 Dim URL, REQ, FSO					'Declares variables to be good to option explicit users
 If beta_agency = "" then 			'For scriptwriters only
@@ -21,7 +19,7 @@ If req.Status = 200 Then									'200 means great success
 	Set fso = CreateObject("Scripting.FileSystemObject")	'Creates an FSO
 	Execute req.responseText								'Executes the script code
 ELSE														'Error message, tells user to try to reach github.com, otherwise instructs to contact Veronica with details (and stops script).
-	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_ 
+	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_
 			vbCr & _
 			"Before contacting Robert Kalb, please check to make sure you can load the main page at www.GitHub.com." & vbCr &_
 			vbCr & _
@@ -32,14 +30,14 @@ ELSE														'Error message, tells user to try to reach github.com, otherwi
 			vbTab & vbTab & "responsible for network issues." & vbCr &_
 			vbTab & "- The URL indicated below (a screenshot should suffice)." & vbCr &_
 			vbCr & _
-			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_ 
+			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_
 			vbCr &_
 			"URL: " & url
 			StopScript
 END IF   'Remember the pf9s are not set to print, they are in green, remove the ' when ready to use
 
 'Connecting to BZ  'This is a script for a NPA or DWP case to print the fin docs
-EMConnect ""   
+EMConnect ""
 
 'Checks to make sure we are in Prism
 CALL check_for_Prism (true)
@@ -121,8 +119,8 @@ Transmit
 
 EMSetCursor 3,29
 
-EMWriteScreen "M", 3,29	   
-				    
+EMWriteScreen "M", 3,29
+
 pf14
 
 pf8
@@ -183,7 +181,7 @@ pf3
 
 pf9
 
-Transmit	
+Transmit
 
 EMSetCursor 3,29
 
@@ -215,7 +213,7 @@ EMWriteScreen "S", 7,5
 
 Transmit
 
-EMwriteScreen "X", 16,15 
+EMwriteScreen "X", 16,15
 
 Transmit
 

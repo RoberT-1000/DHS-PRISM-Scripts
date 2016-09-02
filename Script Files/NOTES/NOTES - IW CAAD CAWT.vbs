@@ -4,10 +4,7 @@ start_time = timer
 STATS_Counter = 1
 STATS_manualtime = 120
 STATS_denomination = "C"
-'End of stats block 
-
-'this is a function document
-DIM beta_agency 'remember to add
+'End of stats block
 
 'LOADING ROUTINE FUNCTIONS (FOR PRISM)---------------------------------------------------------------
 Dim URL, REQ, FSO					'Declares variables to be good to option explicit users
@@ -25,7 +22,7 @@ If req.Status = 200 Then									'200 means great success
 	Set fso = CreateObject("Scripting.FileSystemObject")	'Creates an FSO
 	Execute req.responseText								'Executes the script code
 ELSE														'Error message, tells user to try to reach github.com, otherwise instructs to contact Veronica with details (and stops script).
-	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_ 
+	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_
 			vbCr & _
 			"Before contacting Robert Kalb, please check to make sure you can load the main page at www.GitHub.com." & vbCr &_
 			vbCr & _
@@ -36,7 +33,7 @@ ELSE														'Error message, tells user to try to reach github.com, otherwi
 			vbTab & vbTab & "responsible for network issues." & vbCr &_
 			vbTab & "- The URL indicated below (a screenshot should suffice)." & vbCr &_
 			vbCr & _
-			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_ 
+			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_
 			vbCr &_
 			"URL: " & url
 			StopScript
@@ -74,7 +71,7 @@ EndDialog
 'Connecting to BlueZone
 EMConnect ""
 
-'to pull up my prism 
+'to pull up my prism
 EMFocus
 
 'checks to make sure we are in PRISM
@@ -84,7 +81,7 @@ CALL check_for_PRISM(True)
 CALL navigate_to_PRISM_screen ("CAST")
 
 'it is reading the case number and putting in dialog box
-EMReadScreen PRISM_case_number, 13, 4, 8 
+EMReadScreen PRISM_case_number, 13, 4, 8
 
 'taking me to cast so i can read the employer to put in dialog box
 CALL navigate_to_PRISM_screen ("NCID")
@@ -93,7 +90,7 @@ EMWriteScreen "B", 3, 29
 Transmit
 
 'it is reading the case number and putting in dialog box
-EMReadScreen Employer_Name, 20, 8, 51 
+EMReadScreen Employer_Name, 20, 8, 51
 
 'Calculating pay period amounts to put in cawt and caad
 Dim total_arrears, Month_Accrual, Month_NonAccrual
@@ -119,12 +116,12 @@ Month_NonAccrual = Month_NonAccrual * 1
 total_arrears = total_arrears * 1
 
 'calculating monthly collection to put in dialog and caad and cawt
-IF total_arrears = 0 THEN Monthly = Month_Accrual + Month_NonAccrual  
+IF total_arrears = 0 THEN Monthly = Month_Accrual + Month_NonAccrual
 IF total_arrears >= Month_Accrual AND Month_NonAccrual = 0  THEN Monthly = (Month_Accrual + Month_NonAccrual) * 1.2
 IF total_arrears >= Month_Accrual AND Month_NonAccrual > 0  THEN Monthly = (Month_Accrual + Month_NonAccrual)
 IF total_arrears > Month_NonAccrual AND Month_Accrual = 0 THEN Monthly = Month_NonAccrual * 1.2
 IF total_arrears < Month_Accrual AND total_arrears <> 0 AND Month_NonAccrual = 0 THEN Monthly = Month_Accrual
-IF total_arrears < Month_Accrual AND total_arrears <> 0 AND Month_NonAccrual > 0  THEN Monthly = (Month_Accrual + Month_NonAccrual) 
+IF total_arrears < Month_Accrual AND total_arrears <> 0 AND Month_NonAccrual > 0  THEN Monthly = (Month_Accrual + Month_NonAccrual)
 
 Monthly = trim(Monthly)
 
@@ -139,15 +136,15 @@ total_arrears = FormatCurrency(total_arrears)
 'THE LOOP----------------------------------------
 'adding a loop
 Do
-	err_msg = ""	
-	Dialog IW_Dialog	'shows name of dialog		
+	err_msg = ""
+	Dialog IW_Dialog	'shows name of dialog
 		IF buttonpressed = 0 then stopscript		'Cancel
 		IF PRISM_case_number = "" THEN err_msg = err_msg & vbNewline & "Prism case number must be completed"
 		IF Monthly = "" THEN err_msg = err_msg & vbNewline & "Total monthly Collection on IW Notice must be completed."
 		IF Employer_Name = "" THEN err_msg = err_msg & vbNewline & "Employer Name must be completed."
 		IF IWType = "Select one..." THEN err_msg = err_msg & vbNewline & "IW Type must be completed.  "
 		IF worker_signature = "" THEN err_msg = err_msg & vbNewline & "Please sign your CAAD Note."
-		IF err_msg <> "" THEN 
+		IF err_msg <> "" THEN
 			MsgBox "***NOTICE!!!***" & vbNewline & err_msg & vbNewline & vbNewline & "Please resolve for the script to continue."
 		END IF
 
@@ -189,10 +186,9 @@ EMWriteScreen "free", 4, 37
 EMSetCursor 10, 4
 	CALL write_variable_in_CAAD ("Did " & IWType & " IW start from "  &  Employer_Name  &  Monthly  &  " per month"  &  " yet?")
 CALL write_variable_in_CAAD ("weekly: $" & WeekPay & "  biweekly: $" & BiWeekPay & "  semimonthly: $"& SemiMoPay)
-EMWriteScreen "30", 17, 52 
+EMWriteScreen "30", 17, 52
 transmit
 PF3
 End IF
 
 script_end_procedure("")
-

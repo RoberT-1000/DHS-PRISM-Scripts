@@ -20,7 +20,7 @@ If req.Status = 200 Then									'200 means great success
 	Set fso = CreateObject("Scripting.FileSystemObject")	'Creates an FSO
 	Execute req.responseText								'Executes the script code
 ELSE														'Error message, tells user to try to reach github.com, otherwise instructs to contact Veronica with details (and stops script).
-	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_ 
+	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_
 			vbCr & _
 			"Before contacting Robert Kalb, please check to make sure you can load the main page at www.GitHub.com." & vbCr &_
 			vbCr & _
@@ -31,7 +31,7 @@ ELSE														'Error message, tells user to try to reach github.com, otherwi
 			vbTab & vbTab & "responsible for network issues." & vbCr &_
 			vbTab & "- The URL indicated below (a screenshot should suffice)." & vbCr &_
 			vbCr & _
-			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_ 
+			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_
 			vbCr &_
 			"URL: " & url
 			StopScript
@@ -39,7 +39,7 @@ END IF
 
 
 'DIMMING variables
-DIM beta_agency, row, col, case_number_valid, prism_case_number, worker_signature, ButtonPressed, cp_dob, ncp_dob, cp_rop_signed, ncp_rop_signed, rop_dialog, child_name, rop_completed_at, cp_turned_18_date, ncp_turned_18_date
+DIM row, col, case_number_valid, prism_case_number, worker_signature, ButtonPressed, cp_dob, ncp_dob, cp_rop_signed, ncp_rop_signed, rop_dialog, child_name, rop_completed_at, cp_turned_18_date, ncp_turned_18_date
 
 
 'THE DIALOG--------------------------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ EndDialog
 'THE SCRIPT-------------------------------------------------------------------------------------------------
 
 'Connects to Bluezone
-EMConnect ""                    
+EMConnect ""
 
 'Brings Bluezone to the front
 EMFocus
@@ -93,7 +93,7 @@ CALL check_for_PRISM(True)
 
 
 'The script will not run unless the CAAD note is signed, has a valid prism number, and ROP completed at is completed
-DO	
+DO
 	DO
 		DO
 			Dialog rop_dialog
@@ -133,7 +133,7 @@ IF DateDiff("d", cp_turned_18_date, cp_rop_signed) < 0 THEN CALL write_variable_
 IF DateDiff("d", ncp_turned_18_date, ncp_rop_signed) < 0 THEN CALL write_variable_in_CAAD("* NCP was under 18 when ROP was signed")
 CALL write_variable_in_CAAD(worker_signature)
 transmit
-PF3	
+PF3
 
 
 'Creates a message box if either party was under 18 when ROP was signed

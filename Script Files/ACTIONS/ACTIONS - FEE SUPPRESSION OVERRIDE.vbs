@@ -19,7 +19,7 @@ If req.Status = 200 Then									'200 means great success
 	Set fso = CreateObject("Scripting.FileSystemObject")	'Creates an FSO
 	Execute req.responseText								'Executes the script code
 ELSE														'Error message, tells user to try to reach github.com, otherwise instructs to contact Veronica with details (and stops script).
-	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_ 
+	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_
 			vbCr & _
 			"Before contacting Robert Kalb, please check to make sure you can load the main page at www.GitHub.com." & vbCr &_
 			vbCr & _
@@ -30,7 +30,7 @@ ELSE														'Error message, tells user to try to reach github.com, otherwi
 			vbTab & vbTab & "responsible for network issues." & vbCr &_
 			vbTab & "- The URL indicated below (a screenshot should suffice)." & vbCr &_
 			vbCr & _
-			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_ 
+			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_
 			vbCr &_
 			"URL: " & url
 			StopScript
@@ -38,7 +38,7 @@ END IF
 
 
 'DIMMING variables
-DIM beta_agency, row, col, worker_signature, ButtonPressed, Fee_Suppression_dialog, PRISM_case_number, case_number_valid, case_number, fee_elig_date
+DIM row, col, worker_signature, ButtonPressed, Fee_Suppression_dialog, PRISM_case_number, case_number_valid, case_number, fee_elig_date
 
 'THE DIALOG----------------------------------------------------------------------------------------------------------------------------------------------
 BeginDialog Fee_Suppression_dialog, 0, 0, 156, 115, "Fee Code Suppression"
@@ -55,7 +55,7 @@ EndDialog
 'THE SCRIPT------------------------------------------------------------------------------------------------------------------------------------------------
 
 'Connecting to Bluezone
-EMConnect ""			
+EMConnect ""
 
 'Searches for the case number
 row = 1
@@ -82,24 +82,24 @@ LOOP UNTIL worker_signature <> "" 							                     	'tells the loop t
 'Checks to make sure PRISM is open and you are logged in
 CALL check_for_PRISM(True)
 
-'Goes to CAST screen and PF11 over 							
+'Goes to CAST screen and PF11 over
 CALL Navigate_to_PRISM_screen ("CAST")										'navigates to CAST
 PF11																'Presses PF1 to move right 1 screen
 
 'Updates State Fee Cd: to M in order to suppress the 2% fee
 EMWritescreen "M", 9, 17									        			'changes State Fee Cd: code to M
-EMSetCursor 10, 17												            	'puts cursor on fee elig date line								0	
+EMSetCursor 10, 17												            	'puts cursor on fee elig date line								0
 fee_elig_date = DateAdd("YYYY", 1, date)										'Does the math to figure out the date 1 year from today
 CALL create_mainframe_friendly_date(fee_elig_date, 10, 17, "YYYY")					'changes the Fee eligible date to 1 year from today's date
 CALL write_value_and_transmit ("M", 3, 29)									'puts an M on the action line and presses transmits
 
-'Writes info into CAAD		
-CALL Navigate_to_PRISM_screen ("CAAD")										'navigates to CAADescreen "FREE", 4, 54												'types title of the free caad on the first line of the note	
+'Writes info into CAAD
+CALL Navigate_to_PRISM_screen ("CAAD")										'navigates to CAADescreen "FREE", 4, 54												'types title of the free caad on the first line of the note
 PF5
 EMWriteScreen "Free", 4, 54
 EMWriteScreen "Cost Recovery Fee Override", 16, 4								'writes this as a title line for the caad note.
 EMSetCursor 17, 4													                    	'puts the cursor on the very next line to be ready to enter the not
-CALL write_variable_in_CAAD ("Supervisor overrode cost recovery fee.  Case is NPA due to MNSure interface issue.") 
+CALL write_variable_in_CAAD ("Supervisor overrode cost recovery fee.  Case is NPA due to MNSure interface issue.")
 call write_variable_in_CAAD(worker_signature)							  		'adds worker initials from dialog box
 transmit
 PF3

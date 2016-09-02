@@ -4,7 +4,7 @@ name_of_script = "NOTES - MES FINANCIAL DOCS SENT.vbs"
 start_time = timer
 'MANUAL TIME TO COMPLETE THIS SCRIPT IS NEEDED
 
-DIM beta_agency, row, col
+DIM row, col
 
 'LOADING ROUTINE FUNCTIONS (FOR PRISM)---------------------------------------------------------------
 Dim URL, REQ, FSO					'Declares variables to be good to option explicit users
@@ -22,7 +22,7 @@ If req.Status = 200 Then									'200 means great success
 	Set fso = CreateObject("Scripting.FileSystemObject")	'Creates an FSO
 	Execute req.responseText								'Executes the script code
 ELSE														'Error message, tells user to try to reach github.com, otherwise instructs to contact Veronica with details (and stops script).
-	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_ 
+	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_
 			vbCr & _
 			"Before contacting Robert Kalb, please check to make sure you can load the main page at www.GitHub.com." & vbCr &_
 			vbCr & _
@@ -33,7 +33,7 @@ ELSE														'Error message, tells user to try to reach github.com, otherwi
 			vbTab & vbTab & "responsible for network issues." & vbCr &_
 			vbTab & "- The URL indicated below (a screenshot should suffice)." & vbCr &_
 			vbCr & _
-			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_ 
+			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_
 			vbCr &_
 			"URL: " & url
 			StopScript
@@ -71,7 +71,7 @@ EndDialog
 
 
 'Connecting to Bluezone
-EMConnect ""			
+EMConnect ""
 
 'Searches for the case number
 row = 1
@@ -100,7 +100,7 @@ LOOP UNTIL worker_signature <> "" and return_date <> "" and IsDate(return_date) 
 'Checks to make sure PRISM is open and you are logged in
 CALL check_for_PRISM(True)
 
-				
+
 'Goes to CAAD
 CALL Navigate_to_PRISM_screen ("CAAD")										'goes to the CAAD screen
 PF5																'F5 to add a note
@@ -132,24 +132,24 @@ transmit
 PF3
 
 'Goes to CAWT to add a FREE worklist for the CP's FIN STMT DUE
-IF financial_stmt_cp_check = 1 THEN 
+IF financial_stmt_cp_check = 1 THEN
 	CALL navigate_to_PRISM_screen ("CAWT")
 	PF5
 	EMWriteScreen "A", 3, 30
 	EMWriteScreen "FREE", 4, 37										'types free on worklist item: line
-	EMWriteScreen "CP's Financial Stmt Due", 10, 4 						      'types description, have docs been returned   
+	EMWriteScreen "CP's Financial Stmt Due", 10, 4 						      'types description, have docs been returned
 	EMWriteScreen return_date, 17, 21      			    					'types 30 in the calendar days field
 	transmit
 	PF3
 end if
 
 'Goes to CAWT to add a FREE worklist for the NCP's FIN STMT DUE
-IF financial_stmt_ncp_check = 1 THEN 
+IF financial_stmt_ncp_check = 1 THEN
 	CALL navigate_to_PRISM_screen ("CAWT")
 	PF5
 	EMWriteScreen "A", 3, 30
 	EMWritescreen "FREE", 4, 37												'types free on worklist item: line
-	EMWritescreen "NCP's Financial Stmt Due", 10, 4 						            'types description, have docs been returned   
+	EMWritescreen "NCP's Financial Stmt Due", 10, 4 						            'types description, have docs been returned
 	EMWritescreen return_date, 17, 21      			                  			      'types 30 in the calendar days field
 	transmit
 	PF3

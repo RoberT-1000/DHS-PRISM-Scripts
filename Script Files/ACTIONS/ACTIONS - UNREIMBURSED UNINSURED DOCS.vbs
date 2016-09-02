@@ -3,10 +3,6 @@
 name_of_script = "ACTIONS - Unreimbursed Uninsured Docs.vbs"
 start_time = timer
 
-
-'this is a function document
-DIM beta_agency 'remember to add
-
 'LOADING ROUTINE FUNCTIONS (FOR PRISM)---------------------------------------------------------------
 Dim URL, REQ, FSO					'Declares variables to be good to option explicit users
 If beta_agency = "" then 			'For scriptwriters only
@@ -23,7 +19,7 @@ If req.Status = 200 Then									'200 means great success
 	Set fso = CreateObject("Scripting.FileSystemObject")	'Creates an FSO
 	Execute req.responseText								'Executes the script code
 ELSE														'Error message, tells user to try to reach github.com, otherwise instructs to contact Veronica with details (and stops script).
-	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_ 
+	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_
 			vbCr & _
 			"Before contacting Robert Kalb, please check to make sure you can load the main page at www.GitHub.com." & vbCr &_
 			vbCr & _
@@ -34,7 +30,7 @@ ELSE														'Error message, tells user to try to reach github.com, otherwi
 			vbTab & vbTab & "responsible for network issues." & vbCr &_
 			vbTab & "- The URL indicated below (a screenshot should suffice)." & vbCr &_
 			vbCr & _
-			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_ 
+			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_
 			vbCr &_
 			"URL: " & url
 			StopScript
@@ -84,7 +80,7 @@ EMConnect ""
 CALL navigate_to_PRISM_screen ("CAPS")
 
 'this auto fills prism case number in dialog
-EMReadScreen PRISM_case_number, 13, 4, 8 
+EMReadScreen PRISM_case_number, 13, 4, 8
 
 'THE LOOP--------------------------------------
 'adding a loop
@@ -99,7 +95,7 @@ Do
 		IF CP = 0 AND NCP = 0 AND Percent <> "" THEN err_msg = err_msg & vbNewline & "You must select either CP or NCP if a percent of un/un is entered."
 		IF Enforce_checkbox = 1 and amount = "" THEN err_msg = err_msg & vbNewline & "Please add amount of un/un expenses."
 		IF CAAD_checkbox =1 AND worker_signature = "" THEN err_msg = err_msg & vbNewline & "Please sign your CAAD Note."
-		IF err_msg <> "" THEN 
+		IF err_msg <> "" THEN
 			MsgBox "***NOTICE!!!***" & vbNewline & err_msg & vbNewline & vbNewline & "Please resolve for the script to continue."
 		END IF
 
@@ -128,7 +124,7 @@ Do
 	Dialog DATE_SERVED_dialog
 		IF buttonpressed = 0 then stopscript
 		IF date_served = "" THEN err_msg = err_msg & vbNewline & "Please enter date you are sending Affidavit of Service."
-		IF err_msg <> "" THEN 
+		IF err_msg <> "" THEN
 			MsgBox "***NOTICE!!!***" & vbNewline & err_msg & vbNewline & vbNewline & "Please resolve for the script to continue."
 		END IF
 
@@ -138,7 +134,7 @@ END IF
 
 
 'creates DORD doc for NCP
-IF NCP = checked THEN 
+IF NCP = checked THEN
 
 	CALL navigate_to_PRISM_screen ("DORD")
 	EMWriteScreen "C", 3, 29
@@ -165,7 +161,7 @@ IF NCP = checked THEN
 	EMWriteScreen "ncp", 11, 51
 	transmit
 
-	'shift f2, to get to user lables 
+	'shift f2, to get to user lables
 	PF14
 	EMWriteScreen "u", 20,14
 	transmit
@@ -182,7 +178,7 @@ IF NCP = checked THEN
 END IF
 
 'creates DORD doc for CP
-IF CP = checked THEN 
+IF CP = checked THEN
 
 	CALL navigate_to_PRISM_screen ("DORD")
 	EMWriteScreen "C", 3, 29
@@ -209,13 +205,13 @@ IF CP = checked THEN
 	EMWriteScreen "cpp", 11, 51
 	transmit
 
-	'shift f2, to get to user lables 
+	'shift f2, to get to user lables
 	PF14
 	EMWriteScreen "u", 20,14
 	transmit
 	EMSetCursor 7, 5
 	EMWriteScreen "S", 7, 5
-	
+
 	'enters the percent typed in the dialog box
 	transmit
 	EMWriteScreen (Percent), 16, 15
@@ -237,12 +233,12 @@ END IF
 
 'ADDS CAAD NOTE
 IF CAAD_checkbox = 1 THEN
-	CALL navigate_to_PRISM_screen ("CAAD")																					
+	CALL navigate_to_PRISM_screen ("CAAD")
 	PF5
 	EMWriteScreen "A", 3, 29
 	EMWriteScreen "free", 4, 54
 	EMSetCursor 16, 4
-'this will add information to the CAAD note of what emc docs sent 
+'this will add information to the CAAD note of what emc docs sent
 	CALL write_variable_in_CAAD ("CP returned Affidavit of Health Care Expenses, Notice to Collect UN MED   Exp Req Party, and Copies of bills, receipts, EOB's.")
 	CALL write_variable_in_CAAD ("Amount requested $" & amount)
 	CALL write_variable_in_CAAD(worker_signature)
@@ -262,11 +258,11 @@ IF  Enforce_checkbox = 1 THEN
 	transmit
 	PF14
 	PF8
-	PF8	
+	PF8
 
 	EMWriteScreen "S", 11, 5
-	transmit 
-	
+	transmit
+
 	EMWriteScreen(amount), 16, 15
 	transmit
 	PF3
@@ -284,22 +280,22 @@ IF Aff_Service_checkbox = 1 AND confidential_checkbox = 0 THEN
 	EMWriteScreen "F0016", 6, 36
 	EMWriteScreen "ncp", 11, 51
 	transmit
-'shift f2, to get to user lables 
+'shift f2, to get to user lables
 	PF14
 	EMWriteScreen "u", 20, 14
-	transmit 
+	transmit
 	PF8
 	PF8
 	EMWriteScreen "s", 15, 5
 	EMWriteScreen "s", 16, 5
 	EMWriteScreen "s", 17, 5
-	transmit 
+	transmit
 	EMWriteScreen "Notice of Intent to Enforce Unreimbursed and/or Uninsured", 16, 15
-	transmit 
+	transmit
 	EMWriteScreen "Medical/Dental Expenses", 16, 15
 	transmit
 	EMWriteScreen (date_served), 16, 15
-	transmit 
+	transmit
 	PF8
 	EMWriteScreen "s", 8, 5
 	transmit
@@ -326,22 +322,22 @@ IF Aff_Service_checkbox = 1 AND confidential_checkbox = 1 THEN
 	EMWriteScreen "F0016", 6, 36
 	EMWriteScreen "ncp", 11, 51
 	transmit
-'shift f2, to get to user lables 
+'shift f2, to get to user lables
 	PF14
 	EMWriteScreen "u", 20, 14
-	transmit 
+	transmit
 	PF8
 	PF8
 	EMWriteScreen "s", 15, 5
 	EMWriteScreen "s", 16, 5
 	EMWriteScreen "s", 17, 5
-	transmit 
+	transmit
 	EMWriteScreen "Notice of Intent to Enforce Unreimbursed and/or Uninsured", 16, 15
-	transmit 
+	transmit
 	EMWriteScreen "Medical/Dental Expenses", 16, 15
 	transmit
 	EMWriteScreen (date_served), 16, 15
-	transmit 
+	transmit
 	PF8
 	EMWriteScreen "s", 8, 5
 	transmit

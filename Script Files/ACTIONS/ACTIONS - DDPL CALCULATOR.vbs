@@ -3,8 +3,6 @@ name_of_script = "ACTIONS - DDPL CALCULATOR.vbs"
 start_time = timer
 'MANUAL TIME TO COMPLETE THIS SCRIPT IS NEEDED
 
-DIM beta_agency
-
 'LOADING ROUTINE FUNCTIONS (FOR PRISM)---------------------------------------------------------------
 Dim URL, REQ, FSO					'Declares variables to be good to option explicit users
 If beta_agency = "" then 			'For scriptwriters only
@@ -21,7 +19,7 @@ If req.Status = 200 Then									'200 means great success
 	Set fso = CreateObject("Scripting.FileSystemObject")	'Creates an FSO
 	Execute req.responseText								'Executes the script code
 ELSE														'Error message, tells user to try to reach github.com, otherwise instructs to contact Veronica with details (and stops script).
-	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_ 
+	MsgBox 	"Something has gone wrong. The code stored on GitHub was not able to be reached." & vbCr &_
 			vbCr & _
 			"Before contacting Robert Kalb, please check to make sure you can load the main page at www.GitHub.com." & vbCr &_
 			vbCr & _
@@ -32,11 +30,11 @@ ELSE														'Error message, tells user to try to reach github.com, otherwi
 			vbTab & vbTab & "responsible for network issues." & vbCr &_
 			vbTab & "- The URL indicated below (a screenshot should suffice)." & vbCr &_
 			vbCr & _
-			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_ 
+			"Robert will work with your IT department to try and solve this issue, if needed." & vbCr &_
 			vbCr &_
 			"URL: " & url
 			StopScript
-END IF	
+END IF
 
 'Declared
 DIM ddpl_calculator, PRISM_MCI_number, PRISM_begin_date, PRISM_end_date, buttonpressed, row, direct_deposit_issued_date, end_of_data_check, direct_deposit_amount, end_date, total_amount_issued, string_for_msgbox
@@ -80,27 +78,27 @@ row = 8
 
 total_amount_issued = 0
 
-Do 
-	
-EMReadScreen end_of_data_check, 19, row, 28 					'Checks to see if we've reached the end of the list 
-	If end_of_data_check = "*** End of Data ***" then exit do 		'Exits do if we have 
-EMReadScreen direct_deposit_issued_date, 9, row, 11 				'Reading the issue date 
-EMReadScreen direct_deposit_amount, 10, row, 33 				'Reading amount issued 
+Do
 
-total_amount_issued = total_amount_issued + abs(direct_deposit_amount) 	'Totals amount issued 
+EMReadScreen end_of_data_check, 19, row, 28 					'Checks to see if we've reached the end of the list
+	If end_of_data_check = "*** End of Data ***" then exit do 		'Exits do if we have
+EMReadScreen direct_deposit_issued_date, 9, row, 11 				'Reading the issue date
+EMReadScreen direct_deposit_amount, 10, row, 33 				'Reading amount issued
 
-row = row + 1 										'Increases the row variable by one, to check the next row 
+total_amount_issued = total_amount_issued + abs(direct_deposit_amount) 	'Totals amount issued
 
-EMReadScreen end_of_data_check, 19, row, 28 					'Checks to see if we've reached the end of the list 
-    If end_of_data_check = "*** End of Data ***" then exit do 		'Exits do if we have 
+row = row + 1 										'Increases the row variable by one, to check the next row
 
-    If row = 19 then 									'Resets row and PF8s 
-        PF8 
-        row = 8 
-    End if 
-Loop until end_of_data_check = "*** End of Data ***" 
+EMReadScreen end_of_data_check, 19, row, 28 					'Checks to see if we've reached the end of the list
+    If end_of_data_check = "*** End of Data ***" then exit do 		'Exits do if we have
 
-string_for_msgbox = " Total payments issued for the period of " & PRISM_begin_date & " through " & PRISM_end_date & " is $" & total_amount_issued 
+    If row = 19 then 									'Resets row and PF8s
+        PF8
+        row = 8
+    End if
+Loop until end_of_data_check = "*** End of Data ***"
 
-MsgBox string_for_msgbox 
+string_for_msgbox = " Total payments issued for the period of " & PRISM_begin_date & " through " & PRISM_end_date & " is $" & total_amount_issued
+
+MsgBox string_for_msgbox
 script_end_procedure("")
