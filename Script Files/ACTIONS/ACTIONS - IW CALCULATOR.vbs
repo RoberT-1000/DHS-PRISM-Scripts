@@ -6,9 +6,6 @@ STATS_denomination = "C"
 'End of stats block 
 
 
-'this is a function document
-DIM beta_agency 'remember to add
-
 'LOADING ROUTINE FUNCTIONS (FOR PRISM)---------------------------------------------------------------
 Dim URL, REQ, FSO					'Declares variables to be good to option explicit users
 If beta_agency = "" then 			'For scriptwriters only
