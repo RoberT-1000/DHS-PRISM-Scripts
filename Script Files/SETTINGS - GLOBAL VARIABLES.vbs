@@ -22,6 +22,9 @@ default_directory = "C:\DHS-PRISM-Scripts\Script Files\"
 'This is used for determining whether script_end_procedure will also log usage info in an Access table.
 collecting_statistics = False
 
+'This is a variable used to determine if the agency is using a SQL database or not. Set to true if you're using SQL. Otherwise, set to false.
+using_SQL_database = False
+
 'This is the file path for the statistics Access database.
 stats_database_path = "C:\DHS-PRISM-Scripts\Databases for script usage\usage statistics.accdb"
 
@@ -60,7 +63,7 @@ Set objNet = CreateObject("WScript.NetWork")
 windows_user_ID = objNet.UserName
 
 'This will assign beta users to the master branch.
-If InStr(beta_users, UCASE(windows_user_ID)) <> 0 then use_master_branch = true
+If InStr(UCASE(beta_users), UCASE(windows_user_ID)) <> 0 then use_master_branch = true
 
 'This is the URL of our script repository, and should only change if the agency is a scriptwriting agency. Scriptwriters can elect to use the master branch, allowing them to test new tools, etc.
 IF use_master_branch = TRUE THEN		'scriptwriters typically use the master branch
