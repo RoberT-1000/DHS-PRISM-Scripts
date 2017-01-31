@@ -77,14 +77,14 @@ cs_scripts_array(script_num).description		= "Complete an Employment Verification
 cs_scripts_array(script_num).release_date		= #08/01/2016#
 cs_scripts_array(script_num).scriptwriter		= ""
 
-script_num = script_num + 1
-ReDim Preserve cs_scripts_array(script_num)
-SET cs_scripts_array(script_num) = NEW cs_script
-cs_scripts_array(script_num).script_name		= "Enforcement Intake"
-cs_scripts_array(script_num).category			= "actions"
-cs_scripts_array(script_num).description		= "Intake workflow on enforcement cases."
-cs_scripts_array(script_num).release_date		= #01/01/2000#
-cs_scripts_array(script_num).scriptwriter		= ""
+'script_num = script_num + 1
+'ReDim Preserve cs_scripts_array(script_num)
+'SET cs_scripts_array(script_num) = NEW cs_script
+'cs_scripts_array(script_num).script_name		= "Enforcement Intake"
+'cs_scripts_array(script_num).category			= "actions"
+'cs_scripts_array(script_num).description		= "Intake workflow on enforcement cases."
+'cs_scripts_array(script_num).release_date		= #01/01/2000#
+'cs_scripts_array(script_num).scriptwriter		= ""
 
 script_num = script_num + 1
 ReDim Preserve cs_scripts_array(script_num)
@@ -131,32 +131,32 @@ cs_scripts_array(script_num).description		= "Searches CALI for a specific CP or 
 cs_scripts_array(script_num).release_date		= #01/01/2000#
 cs_scripts_array(script_num).scriptwriter		= ""
 
-script_num = script_num + 1
-ReDim Preserve cs_scripts_array(script_num)
-SET cs_scripts_array(script_num) = NEW cs_script
-cs_scripts_array(script_num).script_name		= "Generic Enforcement Intake"
-cs_scripts_array(script_num).category			= "actions"
-cs_scripts_array(script_num).description		= "Creates various docs related to CS intake as well as DORD docs and enters CAAD."
-cs_scripts_array(script_num).release_date		= #01/01/2000#
-cs_scripts_array(script_num).scriptwriter		= ""
+'script_num = script_num + 1
+'ReDim Preserve cs_scripts_array(script_num)
+'SET cs_scripts_array(script_num) = NEW cs_script
+'cs_scripts_array(script_num).script_name		= "Generic Enforcement Intake"
+'cs_scripts_array(script_num).category			= "actions"
+'cs_scripts_array(script_num).description		= "Creates various docs related to CS intake as well as DORD docs and enters CAAD."
+'cs_scripts_array(script_num).release_date		= #01/01/2000#
+'cs_scripts_array(script_num).scriptwriter		= ""
 														
-script_num = script_num + 1
-ReDim Preserve cs_scripts_array(script_num)
-SET cs_scripts_array(script_num) = NEW cs_script				
-cs_scripts_array(script_num).script_name		= "Income Verification"
-cs_scripts_array(script_num).category			= "actions"
-cs_scripts_array(script_num).description		= "Generates Word document regarding payments CP has received on their case."
-cs_scripts_array(script_num).release_date		= #11/14/2016#
-cs_scripts_array(script_num).scriptwriter		= ""																
+'script_num = script_num + 1
+'ReDim Preserve cs_scripts_array(script_num)
+'SET cs_scripts_array(script_num) = NEW cs_script				
+'cs_scripts_array(script_num).script_name		= "Income Verification"
+'cs_scripts_array(script_num).category			= "actions"
+'cs_scripts_array(script_num).description		= "Generates Word document regarding payments CP has received on their case."
+'cs_scripts_array(script_num).release_date		= #11/14/2016#
+'cs_scripts_array(script_num).scriptwriter		= ""																
 
-script_num = script_num + 1
-ReDim Preserve cs_scripts_array(script_num)
-SET cs_scripts_array(script_num) = NEW cs_script
-cs_scripts_array(script_num).script_name		= "Interview Information Sheet"
-cs_scripts_array(script_num).category			= "actions"
-cs_scripts_array(script_num).description		= "Creates a Word document with general and case-specific information to be used as a reference when meeting with clients."
-cs_scripts_array(script_num).release_date		= #01/31/2017#
-cs_scripts_array(script_num).scriptwriter		= ""
+'script_num = script_num + 1
+'ReDim Preserve cs_scripts_array(script_num)
+'SET cs_scripts_array(script_num) = NEW cs_script
+'cs_scripts_array(script_num).script_name		= "Interview Information Sheet"
+'cs_scripts_array(script_num).category			= "actions"
+'cs_scripts_array(script_num).description		= "Creates a Word document with general and case-specific information to be used as a reference when meeting with clients."
+'cs_scripts_array(script_num).release_date		= #01/31/2017#
+'cs_scripts_array(script_num).scriptwriter		= ""
 																	
 script_num = script_num + 1
 ReDim Preserve cs_scripts_array(script_num)
@@ -194,14 +194,14 @@ cs_scripts_array(script_num).description		= "Updates address to new or unknown, 
 cs_scripts_array(script_num).release_date		= #09/01/2016#
 cs_scripts_array(script_num).scriptwriter		= ""
 
-script_num = script_num + 1
-ReDim Preserve cs_scripts_array(script_num)
-SET cs_scripts_array(script_num) = NEW cs_script
-cs_scripts_array(script_num).script_name		= "Sanction"
-cs_scripts_array(script_num).category			= "actions"
-cs_scripts_array(script_num).description		= "Takes actions on the case to apply or remove public assistance sanction for non-cooperation with child support."
-cs_scripts_array(script_num).release_date		= #01/01/2000#
-cs_scripts_array(script_num).scriptwriter		= ""
+'script_num = script_num + 1
+'ReDim Preserve cs_scripts_array(script_num)
+'SET cs_scripts_array(script_num) = NEW cs_script
+'cs_scripts_array(script_num).script_name		= "Sanction"
+'cs_scripts_array(script_num).category			= "actions"
+'cs_scripts_array(script_num).description		= "Takes actions on the case to apply or remove public assistance sanction for non-cooperation with child support."
+'cs_scripts_array(script_num).release_date		= #01/01/2000#
+'cs_scripts_array(script_num).scriptwriter		= ""
 
 script_num = script_num + 1
 ReDim Preserve cs_scripts_array(script_num)
