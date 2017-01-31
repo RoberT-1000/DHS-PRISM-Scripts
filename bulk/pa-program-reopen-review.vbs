@@ -1,6 +1,10 @@
-'STATS GATHERING----------------------------------------------------------------------------------------------------
-name_of_script = "waiver-of-personal-service.vbs"
-start_time = timer
+'GATHERING STATS---------------------------------------------------------------------------------------------------- 
+name_of_script = "pa-program-reopen-review.vbs" 
+start_time = timer 
+STATS_counter = 1
+STATS_manualtime = 205             
+STATS_denomination = "I"
+'END OF STATS BLOCK-------------------------------------------------------------------------------------------------
 
 'LOADING FUNCTIONS LIBRARY FROM GITHUB REPOSITORY===========================================================================
 IF IsEmpty(FuncLib_URL) = TRUE THEN	'Shouldn't load FuncLib if it already loaded once
@@ -32,88 +36,66 @@ IF IsEmpty(FuncLib_URL) = TRUE THEN	'Shouldn't load FuncLib if it already loaded
 		Execute text_from_the_other_script
 	END IF
 END IF
-'END FUNCTIONS LIBRARY BLOCK================================================================================================
-
+				
 'CHANGELOG BLOCK ===========================================================================================================
 'Starts by defining a changelog array
 changelog = array()
 
 'INSERT ACTUAL CHANGES HERE, WITH PARAMETERS DATE, DESCRIPTION, AND SCRIPTWRITER. **ENSURE THE MOST RECENT CHANGE GOES ON TOP!!**
 'Example: call changelog_update("01/01/2000", "The script has been updated to fix a typo on the initial dialog.", "Jane Public, Oak County")
-CALL changelog_update("01/18/2017", "Worker Signature should now auto-populate.", "Kelly Hiestand, Wright County")
+call changelog_update("01/18/2017", "Statistical information has been added to the script.", "Kallista Imdieke, Stearns County")
 call changelog_update("11/13/2016", "Initial version.", "Veronica Cary, DHS")
 
 'Actually displays the changelog. This function uses a text file located in the My Documents folder. It stores the name of the script file and a description of the most recent viewed change.
 changelog_display
 'END CHANGELOG BLOCK =======================================================================================================
 
-'DIMMING variables
-DIM row, col, case_number_valid, waiver_signed_date, prism_case_number, waiver_dialog, ButtonPressed
 
-'THE DIALOG--------------------------------------------------------------------------------------------------
-
-BeginDialog Waiver_Dialog, 0, 0, 236, 85, "Waiver of Personal Service"
-  EditBox 80, 5, 75, 15, prism_case_number
-  EditBox 180, 25, 55, 15, waiver_signed_date
-  EditBox 80, 45, 85, 15, worker_signature
-  ButtonGroup ButtonPressed
-    OkButton 125, 65, 50, 15
-    CancelButton 180, 65, 50, 15
-  Text 5, 10, 75, 10, "PRISM Case Number:"
-  Text 5, 50, 70, 10, "Sign your CAAD Note:"
-  Text 5, 30, 170, 15, "Date Waiver of Personal Service was signed by CP:"
-EndDialog
-
-
-'THE SCRIPT-------------------------------------------------------------------------------------------------
-
-'Connects to Bluezone
+' >>>>> THE SCRIPT <<<<<
 EMConnect ""
 
-'Brings Bluezone to the front
-EMFocus
-
-'Searches for the case number
-row = 1
-col = 1
-EMSearch "Case: ", row, col
-If row <> 0 then
-	EMReadScreen PRISM_case_number, 13, row, col + 6
-	PRISM_case_number = replace(PRISM_case_number, " ", "-")
-	If isnumeric(left(PRISM_case_number, 10)) = False or isnumeric(right(PRISM_case_number, 2)) = False then PRISM_case_number = ""
-End if
+CALL select_cso_caseload(ButtonPressed, cso_id, cso_name)	'LETS YOU SELECT WHICH CASE NUMBER YOU WOULD LIKE TO RUN THE SCRIPT ON
 
 
+count = 0
+USWT_row = 7
 
-'Makes sure you are not passworded out
-CALL check_for_PRISM(True)
+
+Call navigate_to_Prism_screen("USWT")				'BRINGS YOU TO USWT
 
 
-'The script will not run unless the CAAD note is signed and there is a valid prism case number
+EMWriteScreen "M1600", 20, 30						'SELECTING THE SPECIFIC WORKLIST TYPE INTO CAWT
+transmit									'ENTER
+
 DO
-	DO
-		Dialog waiver_dialog
-		IF ButtonPressed = 0 THEN StopScript		                                       'Pressing Cancel stops the script
-		IF worker_signature = "" THEN MsgBox "You must sign your CAAD note!"                   'If worker sig is blank, message box pops saying you must sign caad note
-		CALL PRISM_case_number_validation(PRISM_case_number, case_number_valid)
-		IF case_number_valid = False THEN MsgBox "Your case number is not valid. Please make sure it is in the following format: XXXXXXXXXX-XX"
-	LOOP UNTIL case_number_valid = True
-LOOP UNTIL worker_signature <> ""                                                                  'Will keep popping up until worker signs note
+	EMReadScreen USWT_type, 5, USWT_row, 45 			'NEED TO FILTER TO THE WORKLIST THAT WE ARE WORKING WITH 
+	IF USWT_type = "M1600" THEN
+		EMReadScreen USWT_case_number, 13, USWT_row, 8
+		EMWriteScreen "S", USWT_row, 4			'SELECTS THE WORKLISTS AND BRINGS YOU TO THE CAST SCREEN
+		transmit							'ENTERS WHAT WAS ENTERED ABOVE
+		EMReadScreen Closure_Reas_check, 3, 13, 52 	'READS THE CLOSURE REASON
+		If Closure_Reas_check = "901" or Closure_Reas_check = "902" or Closure_Reas_check = "910" or Closure_Reas_check = "911" or Closure_Reas_check = "916" or Closure_Reas_check = "923" or Closure_Reas_check = "940" or Closure_Reas_check = "950" THEN
+			Call navigate_to_Prism_screen ("CAWT")	'BRINGS YOU TO THE CAWT SCREEN IN THE CASE THAT HAS THE ABOVE WORKLISTS
+			EMWriteScreen "M1600", 20, 29			'BRIINGS M1600 TO THE TOP SO THAT IT CAN SELECT THE WORKLIST
+			transmit						
+			EMReadScreen CAWT_type, 5, 8, 8		
+			IF CAWT_type = "M1600" THEN    		'PURGES M1600 IF IT IS ONE OF THE ABOVE REASON TYPES
+				EMWriteScreen "P", 8, 4
+				transmit
+				transmit
+				count = count + 1      			'COUNTS THE NUMBER OF WORKLISTS THAT HAVE BEEN PURGED
+ 			END IF 
+		ELSE
+			USWT_row = USWT_row + 1				'IF WORKLIST WAS NOT PURGE THEN WILL BRING YOU TO THE NEXT LINE TO VIEW THE NEXT WORKLIST 
+		End if
+	END IF
 
+	
+	Call navigate_to_Prism_screen("USWT")			'BRINGING US BACK TO USWT SO CAN SELECT THE NEXT WORKLIST 
 
-'Navigates to CAAD and adds note
-CALL navigate_to_PRISM_screen("CAAD")
+	EMWriteScreen "M1600", 20, 30					'SELECTING THE WORKLISTS AGAIN
+	transmit
 
-'Adds a new CAAD note
-PF5
-EMWritescreen "A", 3, 29
+LOOP Until USWT_type <> "M1600"					'RERUNS THE SCRIPT UNTIL ALL WORKLISTS HAVE BEEN REVIEWED IN THAT CASE NUMBER
 
-'Writes the CAAD NOTE
-EMWriteScreen "D5010", 4, 54     'Type of Caad note
-EMSetCursor 16, 4
-CALL write_bullet_and_variable_in_CAAD("Waiver of Personal Service Signed by CP", waiver_signed_date)
-CALL write_variable_in_CAAD(worker_signature)
-transmit  'Saves the CAAD note
-
-
-script_end_procedure("")   'Stops the script
+script_end_procedure("Success!  " & count & " worklists were purged.") 		'TELLS YOU HOW MANY WORKLISTS WERE PURGED BY RUNNING THIS SCRIPT
